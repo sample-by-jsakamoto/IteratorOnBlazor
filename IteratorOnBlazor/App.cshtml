@@ -1,0 +1,38 @@
+﻿<h1>Blazor で Iterator - 無限数列のサンプル</h1>
+
+<p>毎秒更新で、無限に乱数を "列挙" します。</p>
+
+<p>@Value</p>
+
+@functions { 
+
+    int Value;
+
+    protected override void OnInit()
+    {
+        var _ = Loop();
+    }
+
+    private async Task Loop()
+    {
+        foreach (var rndVal in EnumRandoms())
+        {
+            this.Value = rndVal;
+            this.StateHasChanged();
+
+            await Task.Delay(1000);
+        }
+    }
+
+    /// <summary>
+    /// 無限に乱数を列挙します。
+    /// </summary>
+    private IEnumerable<int> EnumRandoms()
+    {
+        var random = new Random();
+        for (; ; )
+        {
+            yield return random.Next();
+        }
+    }
+}
