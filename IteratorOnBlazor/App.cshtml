@@ -15,12 +15,13 @@
 
     private async Task Loop()
     {
+        // 無限に列挙される乱数を、延々と foreach で永遠に回します。
         foreach (var rndVal in EnumRandoms())
         {
             this.Value = rndVal;
             this.StateHasChanged();
 
-            await Task.Delay(1000);
+            await Task.Delay(1000); // 全力でぶん回すと CPU ファンが壊れるので 1秒おきに。
         }
     }
 
